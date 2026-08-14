@@ -1,136 +1,293 @@
-
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <title>{% block title %}Cloth Store{% endblock %}</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="Cloth Store E-commerce Website">
+    <title>
+        {% block title %}Cloth Store{% endblock %}
+    </title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="description"
+          content="{% block meta_description %}Cloth Store - Modern Fashion E-commerce{% endblock %}">
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
 
     {% block extra_head %}{% endblock %}
+
 </head>
+
 
 <body>
 
-<!-- Navbar Start -->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- ============================= -->
+<!-- Announcement Bar -->
+<!-- ============================= -->
+
+<div class="announcement-bar">
+
+    <div class="container text-center">
+
+        <small>
+            Free shipping on orders over ৳2000
+        </small>
+
+    </div>
+
+</div>
+
+
+<!-- ============================= -->
+<!-- Navbar -->
+<!-- ============================= -->
+
+<nav class="navbar navbar-expand-lg main-navbar">
 
     <div class="container">
 
-        <a class="navbar-brand fw-bold" href="/">
-            🛍 Cloth Store
+
+        <!-- Brand -->
+
+        <a class="navbar-brand"
+           href="/">
+
+            <span class="brand-icon">
+                <i class="bi bi-bag-heart-fill"></i>
+            </span>
+
+            <span class="brand-name">
+                Cloth Store
+            </span>
+
         </a>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbar">
+
+        <!-- Mobile Toggle -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
-        <div class="collapse navbar-collapse" id="navbar">
 
-            <ul class="navbar-nav me-auto">
+        <!-- Navbar Content -->
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar">
+
+
+            <!-- Main Navigation -->
+
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+
 
                 <li class="nav-item">
 
-                    <a class="nav-link" href="/">
+                    <a class="nav-link"
+                       href="/">
+
                         Home
+
                     </a>
 
                 </li>
 
+
                 <li class="nav-item">
 
-                    <a class="nav-link" href="{% url 'product_list' %}">
+                    <a class="nav-link"
+                       href="{% url 'product_list' %}">
+
                         Products
+
                     </a>
 
                 </li>
 
+
                 <li class="nav-item">
 
-                    <a class="nav-link" href="{% url 'contact' %}">
+                    <a class="nav-link"
+                       href="{% url 'contact' %}">
+
                         Contact
+
                     </a>
 
                 </li>
 
             </ul>
 
-            <ul class="navbar-nav">
+
+            <!-- Right Navigation -->
+
+            <div class="navbar-actions">
+
+
+                <!-- Search -->
+
+                <a href="{% url 'product_list' %}"
+                   class="nav-icon">
+
+                    <i class="bi bi-search"></i>
+
+                    <span class="d-lg-none">
+                        Search
+                    </span>
+
+                </a>
+
+
+                <!-- Cart -->
+
+                <a href="#"
+                   class="nav-icon position-relative">
+
+                    <i class="bi bi-bag"></i>
+
+                    <span class="d-lg-none">
+                        Cart
+                    </span>
+
+                    <span class="cart-badge">
+                        0
+                    </span>
+
+                </a>
+
 
                 {% if request.user.is_authenticated %}
 
-                    <li class="nav-item">
 
-                        <span class="navbar-text me-3">
+                    <!-- User -->
 
-                            Welcome,
-                            <strong>{{ request.user.name }}</strong>
+                    <div class="dropdown">
 
-                        </span>
+                        <button
+                            class="btn user-button dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown">
 
-                    </li>
+                            <i class="bi bi-person-circle"></i>
 
-                    <li class="nav-item">
+                            <span class="d-none d-lg-inline">
+                                {{ request.user.name }}
+                            </span>
 
-                        <a class="nav-link" href="{% url 'profile' %}">
-                            Profile
-                        </a>
+                        </button>
 
-                    </li>
 
-                    <li class="nav-item">
+                        <ul class="dropdown-menu dropdown-menu-end">
 
-                        <a class="nav-link text-warning"
-                           href="{% url 'logout' %}">
+                            <li>
 
-                            Logout
+                                <a
+                                    class="dropdown-item"
+                                    href="{% url 'profile' %}">
 
-                        </a>
+                                    <i class="bi bi-person me-2"></i>
 
-                    </li>
+                                    Profile
+
+                                </a>
+
+                            </li>
+
+
+                            <li>
+
+                                <a
+                                    class="dropdown-item"
+                                    href="#">
+
+                                    <i class="bi bi-box-seam me-2"></i>
+
+                                    My Orders
+
+                                </a>
+
+                            </li>
+
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+
+                            <li>
+
+                                <a
+                                    class="dropdown-item text-danger"
+                                    href="{% url 'logout' %}">
+
+                                    <i class="bi bi-box-arrow-right me-2"></i>
+
+                                    Logout
+
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
 
                 {% else %}
 
-                    <li class="nav-item">
 
-                        <a class="nav-link"
-                           href="{% url 'register' %}">
+                    <!-- Guest -->
 
-                            Register
+                    <a
+                        href="{% url 'login' %}"
+                        class="btn btn-outline-dark login-button">
 
-                        </a>
+                        Login
 
-                    </li>
+                    </a>
 
-                    <li class="nav-item">
 
-                        <a class="nav-link"
-                           href="{% url 'login' %}">
+                    <a
+                        href="{% url 'register' %}"
+                        class="btn btn-dark register-button">
 
-                            Login
+                        Register
 
-                        </a>
+                    </a>
 
-                    </li>
 
                 {% endif %}
 
-            </ul>
+
+            </div>
 
         </div>
 
@@ -138,62 +295,218 @@
 
 </nav>
 
-<!-- Navbar End -->
 
-<div class="container py-4">
+<!-- ============================= -->
+<!-- Main Content -->
+<!-- ============================= -->
 
-    {% if messages %}
+<main>
 
-        {% for message in messages %}
+    <div class="container py-4">
 
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
 
-                {{ message }}
+        <!-- Django Messages -->
 
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert">
+        {% if messages %}
 
-                </button>
+            {% for message in messages %}
 
-            </div>
+                <div
+                    class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                    role="alert">
 
-        {% endfor %}
+                    {{ message }}
 
-    {% endif %}
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                    </button>
 
-    {% block content %}
-    {% endblock %}
+                </div>
 
-</div>
+            {% endfor %}
 
-<footer class="bg-dark text-white text-center py-3 mt-5">
+        {% endif %}
+
+
+        {% block content %}
+
+        {% endblock %}
+
+
+    </div>
+
+</main>
+
+
+<!-- ============================= -->
+<!-- Footer -->
+<!-- ============================= -->
+
+<footer class="site-footer">
+
 
     <div class="container">
 
-        <p class="mb-1">
 
-            © 2026 Cloth Store.
-            All Rights Reserved.
+        <div class="row g-4">
 
-        </p>
 
-        <small>
+            <!-- Brand -->
 
-            Built with Django & Bootstrap
+            <div class="col-lg-4">
 
-        </small>
+                <h5 class="footer-brand">
+
+                    <i class="bi bi-bag-heart-fill"></i>
+
+                    Cloth Store
+
+                </h5>
+
+                <p class="footer-text">
+
+                    Discover quality fashion and modern
+                    clothing for every occasion.
+
+                </p>
+
+            </div>
+
+
+            <!-- Quick Links -->
+
+            <div class="col-6 col-lg-2">
+
+                <h6>
+                    Shop
+                </h6>
+
+                <ul class="footer-links">
+
+                    <li>
+                        <a href="{% url 'product_list' %}">
+                            All Products
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            New Arrivals
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Featured
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- Customer -->
+
+            <div class="col-6 col-lg-2">
+
+                <h6>
+                    Account
+                </h6>
+
+                <ul class="footer-links">
+
+                    <li>
+                        <a href="{% url 'profile' %}">
+                            My Account
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            My Orders
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Wishlist
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- Contact -->
+
+            <div class="col-lg-4">
+
+                <h6>
+                    Contact
+                </h6>
+
+                <p class="footer-text mb-1">
+
+                    <i class="bi bi-envelope me-2"></i>
+
+                    support@clothstore.com
+
+                </p>
+
+                <p class="footer-text">
+
+                    <i class="bi bi-telephone me-2"></i>
+
+                    +880 1908214958
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <hr class="footer-divider">
+
+
+        <div class="footer-bottom">
+
+            <p class="mb-0">
+
+                © 2026 Cloth Store.
+                All Rights Reserved.
+
+            </p>
+
+            <p class="mb-0">
+
+                Built with Django & Bootstrap
+
+            </p>
+
+        </div>
+
 
     </div>
 
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
 
 {% block extra_js %}{% endblock %}
+
 
 </body>
 
 </html>
-
